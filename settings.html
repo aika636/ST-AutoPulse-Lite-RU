@@ -1,0 +1,364 @@
+<div id="autopulse_settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>ST-AutoPulse</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+
+            <!-- Connection Status -->
+            <div id="autopulse_connection_status" class="autopulse-status">
+                <span class="autopulse-status-dot" id="autopulse_status_dot"></span>
+                <span id="autopulse_status_text">Не подключено</span>
+            </div>
+
+            <hr />
+
+            <!-- Main Toggle -->
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_enabled">
+                    <input type="checkbox" id="autopulse_enabled" />
+                    <span data-i18n="启用自动消息">Автоматические сообщения</span>
+                </label>
+            </div>
+
+            <!-- Interval Setting -->
+            <div class="autopulse-row">
+                <label for="autopulse_interval">
+                    <span data-i18n="消息间隔（分钟）">Интервал (мин)</span>
+                </label>
+                <div class="autopulse-interval-control">
+                    <input type="range" id="autopulse_interval_range" min="1" max="180" value="30" />
+                    <input type="number" id="autopulse_interval_input" min="1" max="180" value="30"
+                        class="text_pole autopulse-number-input" />
+                </div>
+            </div>
+
+            <!-- Timer Status -->
+            <div class="autopulse-row" id="autopulse_timer_info" style="display:none;">
+                <small>
+                    <span class="fa-solid fa-clock"></span>
+                    <span id="autopulse_next_trigger">След. запуск: вычисление...</span>
+                </small>
+            </div>
+
+            <hr />
+
+            <!-- Custom Prompt -->
+            <div class="autopulse-row">
+                <label for="autopulse_prompt">
+                    <span data-i18n="自定义触发提示词">Свой промпт</span>
+                    <small class="autopulse-hint">(пусто = по умолчанию)</small>
+                </label>
+                <textarea id="autopulse_prompt" class="text_pole autopulse-textarea" rows="3"
+                    placeholder="Например: персонаж хочет написать первым, создайте естественное сообщение исходя из контекста и характера."></textarea>
+            </div>
+
+            <hr />
+
+            <!-- Desktop Notifications -->
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_notify">
+                    <input type="checkbox" id="autopulse_notify" />
+                    <span data-i18n="桌面通知">Уведомления браузера</span>
+                </label>
+            </div>
+
+            <!-- Trigger Now Button -->
+            <div class="autopulse-row">
+                <div id="autopulse_trigger_now" class="menu_button menu_button_icon">
+                    <span class="fa-solid fa-bolt"></span>
+                    <span data-i18n="立即触发一次">Запустить сейчас</span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Jealousy System -->
+            <div class="autopulse-section-header">
+                <b data-i18n="嫉妒系统">Система ревности 💢</b>
+            </div>
+
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_jealousy_enabled">
+                    <input type="checkbox" id="autopulse_jealousy_enabled" />
+                    <span data-i18n="启用嫉妒系统">Включить ревность</span>
+                </label>
+                <small class="autopulse-hint">(срабатывает при смене персонажа)</small>
+            </div>
+
+            <div class="autopulse-row">
+                <label>
+                    <span>Ревнивые персонажи:</span>
+                    <small class="autopulse-hint">(⚙️ — отдельный API для каждого)</small>
+                </label>
+                <div id="autopulse_jealousy_chars"
+                    style="max-height:180px; overflow-y:auto; border:1px solid var(--SmartThemeBorderColor); padding:5px; border-radius:5px;">
+                    <span class="autopulse-hint">Загрузка...</span>
+                </div>
+            </div>
+
+            <div class="autopulse-row">
+                <label for="autopulse_jealousy_context_depth">
+                    <span>Глубина контекста</span>
+                    <span id="autopulse_jealousy_context_depth_display" class="autopulse-value-display">10</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_context_depth" min="0" max="50" value="10" />
+                <small class="autopulse-hint">(X последних сообщений как контекст)</small>
+            </div>
+
+            <div class="autopulse-row">
+                <label>
+                    <span>Промпт ревности</span>
+                    <small class="autopulse-hint">(пусто = по умолчанию)</small>
+                </label>
+                <textarea id="autopulse_jealousy_prompt" class="text_pole autopulse-textarea" rows="3"
+                    placeholder="Пусто = по умолч. Пример: «Ты с кем-то другим?» — короткая фраза ревности."></textarea>
+            </div>
+
+            <div class="autopulse-row">
+                <label for="autopulse_jealousy_chance">
+                    <span>Шанс срабатывания</span>
+                    <span id="autopulse_jealousy_chance_display" class="autopulse-value-display">50%</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_chance" min="0" max="100" value="50" />
+            </div>
+
+            <div class="autopulse-row">
+                <label for="autopulse_jealousy_delay_min">
+                    <span>Мин. задержка (с)</span>
+                    <span id="autopulse_jealousy_delay_min_display" class="autopulse-value-display">30s</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_delay_min" min="5" max="300" value="30" />
+            </div>
+
+            <div class="autopulse-row">
+                <label for="autopulse_jealousy_delay_max">
+                    <span>Макс. задержка (с)</span>
+                    <span id="autopulse_jealousy_delay_max_display" class="autopulse-value-display">120s</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_delay_max" min="10" max="600" value="120" />
+            </div>
+
+            <!-- Jailbreak Preset -->
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_jealousy_jailbreak">
+                    <input type="checkbox" id="autopulse_jealousy_jailbreak" />
+                    <span>Включить джейлбрейк 🔓</span>
+                </label>
+                <small class="autopulse-hint">(обходит фильтры контента для сообщений ревности)</small>
+            </div>
+
+            <div class="autopulse-row">
+                <label for="autopulse_jealousy_jailbreak_prompt">
+                    <span>Свой джейлбрейк-промпт</span>
+                    <small class="autopulse-hint">Пусто = встроенный пресет.</small>
+                </label>
+                <textarea
+                    id="autopulse_jealousy_jailbreak_prompt"
+                    class="text_pole autopulse-textarea"
+                    rows="4"
+                    placeholder="Необязательный пользовательский джейлбрейк-промпт"
+                ></textarea>
+            </div>
+
+            <!-- Regex Preset -->
+            <div class="autopulse-section-header" style="margin-top:8px;">
+                <b>Regex-пресет</b>
+            </div>
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_jealousy_regex_enabled">
+                    <input type="checkbox" id="autopulse_jealousy_regex_enabled" checked />
+                    <span>Встроенный regex</span>
+                </label>
+            </div>
+            <div class="autopulse-row">
+                <label><span>Встроенные правила (только чтение)</span></label>
+                <div id="autopulse_builtin_regex_display" class="autopulse-builtin-regex-list"></div>
+            </div>
+            <div class="autopulse-row">
+                <label><span>Свои regex-правила</span></label>
+                <div id="autopulse_jealousy_regex_list" style="margin-bottom:5px;"></div>
+                <div id="autopulse_add_regex_rule" class="menu_button menu_button_icon" style="width:fit-content;">
+                    <span class="fa-solid fa-plus"></span>
+                    <span>Добавить правило</span>
+                </div>
+            </div>
+
+            <div class="autopulse-row autopulse-test-buttons">
+                <div id="autopulse_test_jealousy" class="menu_button menu_button_icon" title="Запустить ревность текущего персонажа">
+                    <span class="fa-solid fa-fire"></span>
+                    <span>Тест ревности</span>
+                </div>
+            </div>
+
+            <!-- Jealousy API Config Modal -->
+            <div id="autopulse_jealousy_api_modal" class="autopulse-modal-overlay" style="display:none;">
+                <div class="autopulse-modal">
+                    <div class="autopulse-modal-header">
+                        <span id="autopulse_modal_char_name">⚙️ API ревности персонажа</span>
+                        <span class="autopulse-modal-close fa-solid fa-xmark" id="autopulse_modal_close"></span>
+                    </div>
+                    <div class="autopulse-modal-body">
+                        <input type="hidden" id="autopulse_modal_char_id" />
+                        <div class="autopulse-row">
+                            <label>Конечная точка API</label>
+                            <input type="text" id="autopulse_modal_api_endpoint" class="text_pole"
+                                placeholder="https://api.openai.com/v1/chat/completions" />
+                        </div>
+                        <div class="autopulse-row">
+                            <label>Ключ API</label>
+                            <input type="password" id="autopulse_modal_api_key" class="text_pole"
+                                placeholder="sk-..." />
+                        </div>
+                        <div class="autopulse-row">
+                            <label>Модель</label>
+                            <div class="autopulse-model-picker">
+                                <input type="text" id="autopulse_modal_model_name" class="text_pole"
+                                    placeholder="gpt-4o-mini" />
+                                <div id="autopulse_modal_fetch_models" class="menu_button menu_button_icon">
+                                    <span class="fa-solid fa-rotate"></span>
+                                    <span>Загрузить модели</span>
+                                </div>
+                            </div>
+                            <select id="autopulse_modal_model_select" class="text_pole" style="margin-top:6px;">
+                                <option value="">Введите вручную или нажмите «Загрузить модели»</option>
+                            </select>
+                            <small id="autopulse_modal_model_hint" class="autopulse-hint">Пытается получить список доступных моделей из текущего канала</small>
+                        </div>
+                        <div class="autopulse-row">
+                            <label>Макс. токенов</label>
+                            <input type="number" id="autopulse_modal_max_tokens" class="text_pole" value="150" min="50"
+                                max="2000" />
+                        </div>
+                        <div class="autopulse-row">
+                            <label>Температура</label>
+                            <input type="number" id="autopulse_modal_temperature" class="text_pole" value="0.9" min="0"
+                                max="2" step="0.1" />
+                        </div>
+                    </div>
+                    <div class="autopulse-modal-footer">
+                        <div id="autopulse_modal_delete" class="menu_button menu_button_icon" style="color:#f44336;">
+                            <span class="fa-solid fa-trash"></span>
+                            <span>Удалить</span>
+                        </div>
+                        <div id="autopulse_modal_save" class="menu_button menu_button_icon">
+                            <span class="fa-solid fa-floppy-disk"></span>
+                            <span>Сохранить</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Scheduled Tasks Section -->
+            <div class="autopulse-section-header">
+                <b data-i18n="定时任务">Плановые задачи</b>
+            </div>
+
+            <div id="autopulse_tasks_list" class="autopulse-tasks-list">
+                <!-- Tasks will be dynamically populated -->
+                <div class="autopulse-empty-state" id="autopulse_no_tasks">
+                    <span class="fa-regular fa-calendar-xmark"></span>
+                    <span data-i18n="暂无定时任务">Нет задач</span>
+                </div>
+            </div>
+
+            <!-- Add Task Form -->
+            <div class="autopulse-add-task">
+                <div class="autopulse-row">
+                    <input type="text" id="autopulse_task_name" class="text_pole" placeholder="Название задачи (напр.: Утреннее приветствие)" />
+                </div>
+                <div class="autopulse-row autopulse-task-time-row">
+                    <input type="time" id="autopulse_task_time" class="text_pole" value="09:00" />
+                    <select id="autopulse_task_repeat" class="text_pole">
+                        <option value="daily">Ежедневно</option>
+                        <option value="weekly">Еженедельно</option>
+                        <option value="once">Однократно</option>
+                    </select>
+                </div>
+                <div class="autopulse-row" id="autopulse_weekday_row" style="display:none;">
+                    <select id="autopulse_task_weekday" class="text_pole">
+                        <option value="1">Пн</option>
+                        <option value="2">Вт</option>
+                        <option value="3">Ср</option>
+                        <option value="4">Чт</option>
+                        <option value="5">Пт</option>
+                        <option value="6">Сб</option>
+                        <option value="0">Вс</option>
+                    </select>
+                </div>
+                <div class="autopulse-row" id="autopulse_date_row" style="display:none;">
+                    <input type="date" id="autopulse_task_date" class="text_pole" />
+                </div>
+                <div class="autopulse-row">
+                    <textarea id="autopulse_task_prompt" class="text_pole autopulse-textarea" rows="2"
+                        placeholder="Промпт задачи (пусто = по умолчанию)"></textarea>
+                </div>
+                <div class="autopulse-row">
+                    <div id="autopulse_add_task_btn" class="menu_button menu_button_icon">
+                        <span class="fa-solid fa-plus"></span>
+                        <span data-i18n="添加任务">Добавить задачу</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Pressure / Anxiety System -->
+            <div class="autopulse-section-header">
+                <b data-i18n="情绪压力系统">Эмоциональное давление</b>
+            </div>
+
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_pressure_enabled">
+                    <input type="checkbox" id="autopulse_pressure_enabled" />
+                    <span data-i18n="启用压力系统">Включить давление</span>
+                </label>
+                <small class="autopulse-hint">(персонаж тревожится, чем дольше вас нет)</small>
+            </div>
+
+            <div class="autopulse-row">
+                <label>
+                    <span>Текущий уровень:</span>
+                    <span id="autopulse_pressure_display" class="autopulse-pressure-indicator">😊 Уровень 0</span>
+                </label>
+            </div>
+
+            <div class="autopulse-row">
+                <label for="autopulse_pressure_max">
+                    <span>Макс. уровень</span>
+                    <span id="autopulse_pressure_max_display" class="autopulse-value-display">4</span>
+                </label>
+                <input type="range" id="autopulse_pressure_max" min="1" max="5" value="4" />
+            </div>
+
+            <div class="autopulse-row">
+                <label class="checkbox_label" for="autopulse_pressure_return">
+                    <input type="checkbox" id="autopulse_pressure_return" checked />
+                    <span data-i18n="启用回归反应">Реакция на возврат</span>
+                </label>
+                <small class="autopulse-hint">(персонаж реагирует, когда вы возвращаетесь)</small>
+            </div>
+
+            <div class="autopulse-row autopulse-test-buttons">
+                <div id="autopulse_test_pressure_up" class="menu_button menu_button_icon" title="Симулировать повышение давления">
+                    <span class="fa-solid fa-arrow-up"></span>
+                    <span>Давление +1</span>
+                </div>
+                <div id="autopulse_test_pressure_trigger" class="menu_button menu_button_icon" title="Запустить сообщение с текущим давлением">
+                    <span class="fa-solid fa-bolt"></span>
+                    <span>Тест. запуск</span>
+                </div>
+                <div id="autopulse_test_return" class="menu_button menu_button_icon" title="Симулировать реакцию на возврат">
+                    <span class="fa-solid fa-heart"></span>
+                    <span>Тест возврата</span>
+                </div>
+            </div>
+
+            <hr />
+
+        </div>
+    </div>
+</div>

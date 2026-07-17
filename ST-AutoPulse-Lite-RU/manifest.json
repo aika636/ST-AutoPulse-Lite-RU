@@ -1,0 +1,12 @@
+{
+    "display_name": "ST-AutoPulse Lite (RU)",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "aika636",
+    "version": "2.0.0",
+    "homePage": "https://github.com/aika636/ST-AutoPulse-Lite-RU",
+    "auto_update": true
+}

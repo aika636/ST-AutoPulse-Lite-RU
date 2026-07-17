@@ -1,0 +1,13 @@
+# Dev-артефакты AI-пайплайна
+.ai/
+.serena/
+
+# Архивы
+ST-AutoPulse-main.zip
+
+# Зависимости
+node_modules/
+
+# Служебное
+.DS_Store
+*.log
