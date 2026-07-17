@@ -366,7 +366,9 @@ function startPolling() {
 
     // Try Web Worker first
     try {
-        const workerUrl = new URL(`scripts/extensions/third-party/${MODULE_NAME}/poll-worker.js`, window.location.origin);
+        // Путь строим относительно самого index.js, чтобы имя папки расширения
+        // (= имя репозитория при установке по URL) не имело значения.
+        const workerUrl = new URL('./poll-worker.js', import.meta.url);
         pollWorker = new Worker(workerUrl);
 
         pollWorker.onmessage = async (e) => {
@@ -1274,7 +1276,7 @@ async function initExtension() {
     const ctx = SillyTavern.getContext();
 
     // Load HTML template
-    const settingsHtml = await $.get(`scripts/extensions/third-party/${MODULE_NAME}/settings.html`);
+    const settingsHtml = await $.get(new URL('./settings.html', import.meta.url).href);
     $('#extensions_settings').append(settingsHtml);
 
     // Bind UI events

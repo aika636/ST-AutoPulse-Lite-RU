@@ -880,7 +880,7 @@ function loadSettingsUI() {
 async function initExtension() {
     const ctx = SillyTavern.getContext();
 
-    const settingsHtml = await $.get(`scripts/extensions/third-party/${MODULE_NAME}/settings.html`);
+    const settingsHtml = await $.get(new URL('./settings.html', import.meta.url).href);
     $('#extensions_settings').append(settingsHtml);
 
     // Привязка событий — основные
