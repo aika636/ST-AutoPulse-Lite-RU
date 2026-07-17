@@ -11,3 +11,16 @@ node_modules/
 # Служебное
 .DS_Store
 *.log
+
+# Lint/debug-артефакты
+**/lint*.txt
+**/lint*.json
+**/all_lint_errors.txt
+**/final_lint_report.txt
+**/dom_output.txt
+**/frontend_debug.png
+**/server_log.txt
+**/server_crash_log.txt
+
+# Рантайм-загрузки ChatPulse
+ChatPulse/server/public/uploads/
