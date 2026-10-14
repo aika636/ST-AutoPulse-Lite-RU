@@ -1,0 +1,205 @@
+<div class="autopulse-settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>ST-AutoPulse Lite</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+
+            <!-- Статус -->
+            <div class="autopulse-status" id="autopulse_status_bar">
+                <span class="autopulse-status-dot disconnected" id="autopulse_status_dot"></span>
+                <span id="autopulse_status_text">Отключено</span>
+            </div>
+
+            <!-- Включение -->
+            <label class="checkbox_label" for="autopulse_enabled">
+                <input type="checkbox" id="autopulse_enabled" />
+                <span>Включить автоматические сообщения</span>
+            </label>
+
+            <!-- Интервал -->
+            <div class="autopulse-setting-group">
+                <label>Интервал сообщений (мин)</label>
+                <div class="autopulse-interval-row">
+                    <input type="range" id="autopulse_interval_range" min="1" max="180" value="30" />
+                    <input type="number" id="autopulse_interval_input" min="1" max="180" value="30"
+                        class="text_pole autopulse-interval-num" />
+                </div>
+            </div>
+
+            <!-- Информация о таймере -->
+            <div class="autopulse-timer-info" id="autopulse_timer_info" style="display:none;">
+                <span class="fa-solid fa-clock"></span>
+                <span id="autopulse_next_trigger">Вычисляется...</span>
+            </div>
+
+            <!-- Промпт -->
+            <div class="autopulse-setting-group">
+                <label>
+                    Пользовательский промпт
+                    <small>（Оставь пустым для использования по умолчанию）</small>
+                </label>
+                <textarea id="autopulse_prompt" class="text_pole autopulse-prompt-input" rows="4"
+                    placeholder="Например: прошло некоторое время, персонаж хочет написать пользователю первым. Основываясь на контексте диалога и характере персонажа, сгенерируй естественное сообщение."></textarea>
+            </div>
+
+            <!-- Уведомления рабочего стола -->
+            <label class="checkbox_label" for="autopulse_notify">
+                <input type="checkbox" id="autopulse_notify" checked />
+                <span>Уведомления рабочего стола</span>
+            </label>
+
+            <!-- Ручной запуск -->
+            <div class="autopulse-actions">
+                <div class="menu_button" id="autopulse_trigger_now">
+                    <span class="fa-solid fa-bolt"></span>
+                    <span>Запустить сейчас</span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Система эмоционального давления -->
+            <div class="autopulse-section-header">
+                <b>Система эмоционального давления</b>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label class="checkbox_label" for="autopulse_pressure_enabled">
+                    <input type="checkbox" id="autopulse_pressure_enabled" />
+                    <span>Включить систему давления</span>
+                </label>
+                <small class="autopulse-hint"
+                    style="display:block; margin-left:24px; color:var(--SmartThemeQuoteColor);">
+                    Чем дольше ты не отвечаешь — тем тревожнее становится персонаж
+                </small>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label>
+                    <span>Текущий уровень давления：</span>
+                    <span id="autopulse_pressure_display" style="font-weight:bold; color:#4caf50;">😊 Уровень 0</span>
+                </label>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label style="display:flex; justify-content:space-between;">
+                    <span>Максимальный уровень давления</span>
+                    <span id="autopulse_pressure_max_display" style="font-weight:bold;">4</span>
+                </label>
+                <input type="range" id="autopulse_pressure_max" min="1" max="5" value="4" style="width:100%;" />
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label class="checkbox_label" for="autopulse_pressure_return">
+                    <input type="checkbox" id="autopulse_pressure_return" checked />
+                    <span>Включить реакцию на возвращение</span>
+                </label>
+                <small class="autopulse-hint"
+                    style="display:block; margin-left:24px; color:var(--SmartThemeQuoteColor);">
+                    Персонаж реагирует, когда ты возвращаешься и отвечаешь
+                </small>
+            </div>
+
+            <div class="autopulse-actions" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+                <div id="autopulse_test_pressure_up" class="menu_button" title="Симулировать повышение давления">
+                    <span class="fa-solid fa-arrow-up"></span>
+                    <span>Давление +1</span>
+                </div>
+                <div id="autopulse_test_pressure_trigger" class="menu_button" title="Запустить сообщение с текущим уровнем давления">
+                    <span class="fa-solid fa-bolt"></span>
+                    <span>Тестовый запуск</span>
+                </div>
+                <div id="autopulse_test_return" class="menu_button" title="Симулировать реакцию на возвращение">
+                    <span class="fa-solid fa-heart"></span>
+                    <span>Тест возвращения</span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Система ревности -->
+            <div class="autopulse-section-header">
+                <b>Система ревности 💢</b>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label class="checkbox_label" for="autopulse_jealousy_enabled">
+                    <input type="checkbox" id="autopulse_jealousy_enabled" />
+                    <span>Включить систему ревности</span>
+                </label>
+                <small class="autopulse-hint"
+                    style="display:block; margin-left:24px; color:var(--SmartThemeQuoteColor);">
+                    Срабатывает при переключении на другого персонажа
+                </small>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label>
+                    <span>Выбери ревнивых персонажей：</span>
+                    <small class="autopulse-hint"
+                        style="display:block; margin-bottom:5px; color:var(--SmartThemeQuoteColor);">
+                        Никто не выбран — система не работает
+                    </small>
+                </label>
+                <div id="autopulse_jealousy_chars"
+                    style="max-height:150px; overflow-y:auto; border:1px solid var(--SmartThemeBorderColor); padding:5px; border-radius:5px;">
+                    <span class="autopulse-hint">Загрузка...</span>
+                </div>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label>
+                    <span>Пользовательский промпт ревности</span>
+                    <small class="autopulse-hint">（Оставь пустым для использования по умолчанию）</small>
+                </label>
+                <textarea id="autopulse_jealousy_prompt" class="text_pole autopulse-prompt-input" rows="3"
+                    placeholder="Пусто = по умолчанию. Пример: ты замечаешь, что собеседник общается с кем-то другим — вырази ревность одной фразой, коротко, как сообщение в мессенджере."></textarea>
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label style="display:flex; justify-content:space-between;">
+                    <span>Вероятность срабатывания</span>
+                    <span id="autopulse_jealousy_chance_display" style="font-weight:bold;">50%</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_chance" min="0" max="100" value="50" style="width:100%;" />
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label style="display:flex; justify-content:space-between;">
+                    <span>Минимальная задержка (сек)</span>
+                    <span id="autopulse_jealousy_delay_min_display" style="font-weight:bold;">30 сек</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_delay_min" min="5" max="300" value="30"
+                    style="width:100%;" />
+            </div>
+
+            <div class="autopulse-setting-group">
+                <label style="display:flex; justify-content:space-between;">
+                    <span>Максимальная задержка (сек)</span>
+                    <span id="autopulse_jealousy_delay_max_display" style="font-weight:bold;">120 сек</span>
+                </label>
+                <input type="range" id="autopulse_jealousy_delay_max" min="10" max="600" value="120"
+                    style="width:100%;" />
+            </div>
+
+            <div class="autopulse-actions" style="margin-top:10px;">
+                <div id="autopulse_test_jealousy" class="menu_button" title="Немедленно запустить сообщение ревности для текущего персонажа">
+                    <span class="fa-solid fa-fire"></span>
+                    <span>Тест ревности</span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Примечание -->
+            <div class="autopulse-notice">
+                <span class="fa-solid fa-circle-info"></span>
+                <span>Lite-версия: останавливается при закрытии вкладки. <a
+                        href="https://github.com/aika636/ST-AutoPulse-Lite-RU" target="_blank">Полная версия</a></span>
+            </div>
+
+        </div>
+    </div>
+</div>
